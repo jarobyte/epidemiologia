@@ -23,3 +23,5 @@ errores <-  tibble(
          error_en_I = `(solucionODE$I - observaciones_I)^2`,
          error_en_M = `(solucionODE$M - observaciones_M)^2`
          )
+
+

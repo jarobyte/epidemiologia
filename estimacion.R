@@ -1,7 +1,10 @@
 library(deSolve)
 library(tidyverse)
 ## aquí abajo se pone el modelo
-## S = susceptibles, I = infectados, , M = muertos
+## S = susceptibles, I = infectados, , R = muertos
+parameters <- c(a = 1, b = 0.001, c = 0.01)
+state <- c(S = 10000, I = 10, M = 0)
+
 SIM <- function(t, state, parameters) {
   with(as.list(c(state, parameters)), {
     dS <- a * S - b * S * I
@@ -10,8 +13,11 @@ SIM <- function(t, state, parameters) {
     list(c(dS, dI, dM))
   })
 }
-parameters <- c(a = -8/3, b = -10, c = 28)
-state <- c(S = 1, I = 1, M = 1)
-times <- seq(0, 100, by = 0.01)
-solucionODE <- ode(y = state, times = times, func = SIM, parms = parameters) %>% as.tibble()
-#plot(out)
+
+times <- seq(0, 2, by = 0.01)
+solucionODE <- ode(y = state, times = times, func = SIM, parms = parameters)
+datosODE <- solucionODE %>% as.data.frame() %>% as.tibble()
+
+ggplot(datosODE, aes(time, S)) + geom_point()
+ggplot(datosODE, aes(time, I)) + geom_point()
+ggplot(datosODE, aes(time, M)) + geom_point()
