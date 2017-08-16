@@ -18,7 +18,7 @@ observaciones <- tibble(observaciones_S, observaciones_I, observaciones_R)
 ## Primero definimos el modelo
 
 SIR <- function(t, state, parameters) {
-  with(as.list(c(state, parameters)), {
+  #with(as.list(c(state, parameters)), {
     # dS <- a * S - b * I * R
     # dI <- (-c)*I + b * I * R
     # dR <- c * I
@@ -26,7 +26,7 @@ SIR <- function(t, state, parameters) {
     dI <- 0
     dR <- 0
     list(c(dS, dI, dR))
-  })
+  #})
 }
 
 ## Definimos el rango de tiempo y condiciones iniciales de prueba
@@ -41,9 +41,8 @@ error <- function(parametros, condicionesIniciales, observaciones){
   out <- ode(y = condicionesIniciales, times = tiempo, func = SIR, parms = parametros)
   solucionODE <- out %>% 
     as.data.frame()
-    error_S = (solucionODE$S - observaciones[1])^2
-    error_I = (solucionODE$I - observaciones[2])^2 
-    error_R = (solucionODE$R - observaciones[3])^2
+    error_S = (solucionODE$S - observaciones[[1]])^2
+    error_I = (solucionODE$I - observaciones[[2]])^2 
+    error_R = (solucionODE$R - observaciones[[3]])^2
   sum(error_S + error_I + error_R)
 }
-
