@@ -37,17 +37,13 @@ condicionesIniciales <- c(S = 2, I = 2, R = 2)
 
 ## Ahora definimos la funcion
 
-error <- function(parametros, condicionesIniciales){
+error <- function(parametros, condicionesIniciales, observaciones){
   out <- ode(y = condicionesIniciales, times = tiempo, func = SIR, parms = parametros)
   solucionODE <- out %>% 
-    as.data.frame() %>% 
-    as.tibble() 
-  
-    solucionODE <- mutate(solucionODE, 
-      error_S = (solucionODE$S - observaciones_S)^2,
-      error_I = (solucionODE$I - observaciones_I)^2, 
-      error_R = (solucionODE$R - observaciones_R)^2
-      )
-  sum(solucionODE$error_S + solucionODE$error_I + solucionODE$error_R)
+    as.data.frame()
+    error_S = (solucionODE$S - observaciones[1])^2
+    error_I = (solucionODE$I - observaciones[2])^2 
+    error_R = (solucionODE$R - observaciones[3])^2
+  sum(error_S + error_I + error_R)
 }
 
