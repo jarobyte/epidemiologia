@@ -8,13 +8,18 @@ source("estimacion.R")
 
 ## Observaciones simuladas
 
-observaciones_X <- seq(0, 100, by = 0.01)
-observaciones_Y <- seq(100, 200, by = 0.01)
-observaciones_Z <- seq(200, 300, by = 0.01)
+observaciones_S <- seq(0, 100, by = 0.01)
+observaciones_I <- seq(100, 200, by = 0.01)
+observaciones_M <- seq(200, 300, by = 0.01)
 
-observaciones <- tibble(observaciones_X, observaciones_Y, observaciones_Z)
+observaciones <- tibble(observaciones_S, observaciones_I, observaciones_M)
 
 errores <-  tibble(
-  (solucionODE$X - observaciones_X)^2, 
-  (solucionODE$Y - observaciones_Y)^2, 
-  (solucionODE$Z - observaciones_Z)^2)
+  (solucionODE$S - observaciones_S)^2, 
+  (solucionODE$I - observaciones_I)^2, 
+  (solucionODE$M - observaciones_M)^2
+  ) %>% 
+  rename(error_en_S = `(solucionODE$S - observaciones_S)^2`,
+         error_en_I = `(solucionODE$I - observaciones_I)^2`,
+         error_en_M = `(solucionODE$M - observaciones_M)^2`
+         )
