@@ -5,7 +5,7 @@ state <- c(S=10000,I=10,R = 0)
 SIR <- function(t,state,parameters){
   with(as.list(c(state,parameters)),{
     dS <- beta*S-Ts_infeccion*S*I
-    dI <- Ts_infeccion*S*I - Ts_muerte*R
+    dI <- Ts_infeccion*S*I - Ts_muerte*I
     dR <- Ts_muerte*I
     
     

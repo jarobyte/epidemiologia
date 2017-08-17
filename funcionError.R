@@ -41,8 +41,8 @@ error <- function(parametros, condicionesIniciales, observaciones){
   out <- ode(y = condicionesIniciales, times = tiempo, func = SIR, parms = parametros)
   solucionODE <- out %>% 
     as.data.frame()
-    error_S = (solucionODE$S - observaciones[[1]])^2
-    error_I = (solucionODE$I - observaciones[[2]])^2 
-    error_R = (solucionODE$R - observaciones[[3]])^2
+    error_S <-  (solucionODE[[1]] - observaciones[[1]])^2
+    error_I <-  (solucionODE[[2]] - observaciones[[2]])^2 
+    error_R <-  (solucionODE[[3]] - observaciones[[3]])^2
   sum(error_S + error_I + error_R)
 }
