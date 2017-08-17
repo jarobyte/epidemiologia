@@ -1,4 +1,4 @@
-library(rCMA);
+
 source('funcionError.R')
 #error <- parametros 3 ,condiciones_iniciales 3
 
